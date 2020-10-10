@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, BrowserRouter } from 'react-router-dom'
 import ItemPage from './ItemPage';
-import { getData } from './store/reducers/reducer'
+import { getData, deleteJoke } from './store/reducers/reducer'
 import { connect } from 'react-redux'
 
 class App extends React.Component {
@@ -11,14 +11,14 @@ class App extends React.Component {
   }
 
   render() {
-    debugger
-    console.log(this.props);
+    // debugger
+    // console.log(this.props);
 
     return (
       <div className="App">
         <BrowserRouter>
           <Route path='/' render={() => {
-            return <ItemPage jokeID={this.props.jokeID} jokeText={this.props.jokeText} />
+            return <ItemPage jokes={this.props.jokes} deleteJoke={this.props.deleteJoke}/>
           }} />
         </BrowserRouter>
       </div>
@@ -28,11 +28,11 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    jokeID: state.reducer.jokes.id,
-    jokeText: state.reducer.jokes.joke,
+    jokes: state.reducer.jokes
   }
 }
 
 export default connect(mapStateToProps, {
   getData,
+  deleteJoke,
 })(App);
